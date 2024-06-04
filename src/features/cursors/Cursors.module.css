@@ -1,0 +1,26 @@
+.cursor {
+  position: absolute;
+  min-width: 10px;
+  min-height: 10px;
+  background-color: rgb(141, 116, 190);
+  cursor: none;
+  z-index: 1;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  padding: 4px;
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+.cursor::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid black;
+  border-bottom: none;
+  border-right: none;
+  top: 0;
+  left: 0;
+}
