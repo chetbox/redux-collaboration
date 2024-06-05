@@ -47,7 +47,7 @@ export const buttonSlice = createAppSlice({
     countdown: create.reducer(state => {
       state.counter -= 1
       if (state.counter < 0) {
-        state.counter = initialState.counter
+        state.counter = initialState.counter * 2
       }
     }),
   }),
