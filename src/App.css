@@ -1,3 +1,8 @@
+:root {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 .App {
   text-align: center;
   position: fixed;
