@@ -16,7 +16,7 @@ const initialState: ButtonSliceState = {
   backgroundColor: "#704cb6",
   textColor: "#ffffff",
   fontSize: 20,
-  counter: 60 * 5,
+  counter: 60,
 }
 
 export const buttonSlice = createAppSlice({
@@ -47,7 +47,7 @@ export const buttonSlice = createAppSlice({
     countdown: create.reducer(state => {
       state.counter -= 1
       if (state.counter < 0) {
-        state.counter = initialState.counter * 2
+        state.counter = initialState.counter
       }
     }),
   }),
