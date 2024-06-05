@@ -28,3 +28,17 @@
   top: 0;
   left: 0;
 }
+
+.connections {
+  list-style: none;
+  padding: 0;
+  color: #aaa;
+  text-align: center;
+
+  & > li {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+  }
+}

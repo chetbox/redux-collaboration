@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "./App.css"
 import { Button, LeaderBoard, Settings } from "./features/button/Button"
-import { Cursors } from "./features/cursors/Cursors"
+import { Connections, Cursors } from "./features/cursors/Cursors"
 import { NamePicker } from "./features/names/Names"
 import { useAppSelector } from "./app/hooks"
 import { namesSelectors } from "./features/names/namesSlice"
@@ -29,6 +29,9 @@ const App = () => {
       <div className="Settings" style={!showSettings ? { transform: "translateX(100%)" } : undefined}>
         <button onClick={() => setShowSettings(false)}>Close</button>
         <Settings />
+      </div>
+      <div className="Connections">
+        <Connections />
       </div>
     </div>
   )

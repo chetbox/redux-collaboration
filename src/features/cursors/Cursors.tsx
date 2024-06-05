@@ -89,3 +89,15 @@ export const Cursors = () => {
     </>
   )
 }
+
+export const Connections = () => {
+  const count = useAppSelector(cursorsSlice.selectors.count)
+
+  return (
+    <ul className={styles.connections}>
+      {new Array(count).fill(null).map((_, index) => (
+        <li key={index}>•</li>
+      ))}
+    </ul>
+  )
+}

@@ -35,3 +35,13 @@
   right: 10px;
   font-size: 16px;
 }
+
+.Connections {
+  position: fixed;
+  height: auto;
+  bottom: 0;
+  padding: 10px;
+  left: 0;
+  right: 0;
+  font-weight: bold;
+}
