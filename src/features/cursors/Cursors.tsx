@@ -19,9 +19,9 @@ export const Cursors = () => {
     }
   }, [connectionId, dispatch])
 
-  // Update cursor position
+  // Update cursor position from mouse
   useLayoutEffect(() => {
-    const onMouseMove = throttle((event: MouseEvent) => {
+    const onMove = throttle((event: MouseEvent) => {
       dispatch(
         cursorsSlice.actions.setPosition({
           connectionId: connectionId,
@@ -30,11 +30,11 @@ export const Cursors = () => {
       )
     }, 50)
 
-    document.body.addEventListener("mouseenter", onMouseMove)
-    document.body.addEventListener("mousemove", onMouseMove)
+    document.body.addEventListener("mouseenter", onMove)
+    document.body.addEventListener("mousemove", onMove)
     return () => {
-      document.body.removeEventListener("mouseenter", onMouseMove)
-      document.body.removeEventListener("mousemove", onMouseMove)
+      document.body.removeEventListener("mouseenter", onMove)
+      document.body.removeEventListener("mousemove", onMove)
     }
   }, [connectionId, dispatch])
 
@@ -51,6 +51,43 @@ export const Cursors = () => {
     document.body.addEventListener("mouseleave", onMouseLeave)
     return () => {
       document.body.removeEventListener("mouseleave", onMouseLeave)
+    }
+  }, [connectionId, dispatch])
+
+  // Update cursor position from touch devices
+  useLayoutEffect(() => {
+    const throttleMs = 50
+    const onMove = throttle((event: TouchEvent) => {
+      const touch = event.touches[0] // Only support single touch
+      dispatch(
+        cursorsSlice.actions.setPosition({
+          connectionId: connectionId,
+          position: { x: touch.clientX, y: touch.clientY },
+        }),
+      )
+    }, throttleMs)
+    const onEnd = () => {
+      setTimeout(
+        () =>
+          dispatch(
+            cursorsSlice.actions.setPosition({
+              connectionId: connectionId,
+              position: null,
+            }),
+          ),
+        throttleMs,
+      )
+    }
+
+    document.body.addEventListener("touchstart", onMove)
+    document.body.addEventListener("touchmove", onMove)
+    document.body.addEventListener("touchend", onEnd)
+    document.body.addEventListener("touchcancel", onEnd)
+    return () => {
+      document.body.removeEventListener("touchstart", onMove)
+      document.body.removeEventListener("touchmove", onMove)
+      document.body.removeEventListener("touchend", onEnd)
+      document.body.removeEventListener("touchcancel", onEnd)
     }
   }, [connectionId, dispatch])
 
