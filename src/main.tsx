@@ -9,6 +9,7 @@ import "./index.css"
 import { syncTime } from "./features/remoteUi/timeSync"
 import createRemoteUiEnhancer, { RemoteUiActionTypes } from "./features/remoteUi/remoteUiEnhancer"
 import { UiConnectionProvider, type UiConnectionSocket } from "./features/remoteUi/UiConnectionProvider"
+import { namesActions } from "./features/names/namesSlice"
 
 const container = document.getElementById("root")!
 const root = createRoot(container)
@@ -22,7 +23,7 @@ syncTime(socket)
 let store: ReturnType<typeof makeStore> | null = null
 
 // Handle the initial state. We should only get this once, as the first message, per connection
-socket.on("init", ({ uiConnectionId, state }) => {
+socket.on("init", ({ uiConnectionId: connectionId, state }) => {
   // const previousInstanceId = store?.getState().instanceId
 
   // // Check for a new instance. It could be a different version, release type, etc
@@ -37,7 +38,7 @@ socket.on("init", ({ uiConnectionId, state }) => {
     {
       enhancers: [
         createRemoteUiEnhancer<RootState, AppAction>({
-          connectionId: uiConnectionId,
+          connectionId,
           // When an action is dispatched locally send it to the server
           // to share it with all remote connections
           onLocalDispatch(action) {
@@ -57,10 +58,19 @@ socket.on("init", ({ uiConnectionId, state }) => {
     store.dispatch({ type: RemoteUiActionTypes.Dispatch, actions })
   })
 
+  // Register an existing name with this connection
+  {
+    const existingName = localStorage.getItem("name")
+    if (existingName) {
+      store.dispatch(namesActions.register({ connectionId, name: existingName }))
+    }
+  }
+
+  // Render the app
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <UiConnectionProvider connectionId={uiConnectionId} socket={socket}>
+        <UiConnectionProvider connectionId={connectionId} socket={socket}>
           <App />
         </UiConnectionProvider>
       </Provider>

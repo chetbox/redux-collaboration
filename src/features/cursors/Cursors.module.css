@@ -2,13 +2,14 @@
   position: absolute;
   min-width: 10px;
   min-height: 10px;
-  background-color: rgb(141, 116, 190);
+  font-weight: bold;
+  color: rgb(112, 76, 186);
   cursor: none;
   z-index: 1;
   user-select: none;
   pointer-events: none;
   white-space: nowrap;
-  padding: 4px;
+  padding: 4px 6px;
   box-sizing: border-box;
   font-size: 10px;
   transition:

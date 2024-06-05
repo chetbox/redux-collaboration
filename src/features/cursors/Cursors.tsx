@@ -1,14 +1,16 @@
+import throttle from "lodash.throttle"
 import { useLayoutEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { cursorsSlice } from "./cursorsSlice"
-import styles from "./Cursors.module.css"
+import { namesSlice } from "../names/namesSlice"
 import { useUiConnectionId } from "../remoteUi/UiConnectionProvider"
-import throttle from "lodash.throttle"
+import styles from "./Cursors.module.css"
+import { cursorsSlice } from "./cursorsSlice"
 
 export const Cursors = () => {
   const dispatch = useAppDispatch()
   const cursors = useAppSelector(state => state[cursorsSlice.name])
   const connectionId = useUiConnectionId()
+  const connectionIdNames = useAppSelector(state => state[namesSlice.name].connectionIdNames)
 
   useLayoutEffect(() => {
     dispatch(cursorsSlice.actions.connect({ connectionId }))
@@ -22,7 +24,7 @@ export const Cursors = () => {
     const onMouseMove = throttle((event: MouseEvent) => {
       dispatch(
         cursorsSlice.actions.setPosition({
-          connectionId,
+          connectionId: connectionId,
           position: { x: event.clientX, y: event.clientY },
         }),
       )
@@ -41,7 +43,7 @@ export const Cursors = () => {
     const onMouseLeave = () =>
       dispatch(
         cursorsSlice.actions.setPosition({
-          connectionId,
+          connectionId: connectionId,
           position: null,
         }),
       )
@@ -58,7 +60,7 @@ export const Cursors = () => {
       if (document.hidden) {
         dispatch(
           cursorsSlice.actions.setPosition({
-            connectionId,
+            connectionId: connectionId,
             position: null,
           }),
         )
@@ -80,7 +82,7 @@ export const Cursors = () => {
               className={styles.cursor}
               style={{ left: cursor.position.x, top: cursor.position.y, opacity: id === connectionId ? 0 : 1 }}
             >
-              {id}
+              {connectionIdNames[id] || id}
             </div>
           ),
       )}
