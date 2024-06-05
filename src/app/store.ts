@@ -4,9 +4,10 @@ import { setupListeners } from "@reduxjs/toolkit/query"
 import { cursorsSlice } from "../features/cursors/cursorsSlice"
 import { buttonSlice } from "../features/button/buttonSlice"
 import { namesSlice } from "../features/names/namesSlice"
+import { instanceSlice } from "../features/instance/instanceSlice"
 
 // `combineSlices` automatically combines the reducers
-const rootReducer = combineSlices(cursorsSlice, buttonSlice, namesSlice)
+const rootReducer = combineSlices(instanceSlice, cursorsSlice, buttonSlice, namesSlice)
 
 // The store setup is wrapped in `makeStore` to allow reuse
 // when setting up tests that need the same store config

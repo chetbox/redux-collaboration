@@ -24,15 +24,15 @@ let store: ReturnType<typeof makeStore> | null = null
 
 // Handle the initial state. We should only get this once, as the first message, per connection
 socket.on("init", ({ uiConnectionId: connectionId, state }) => {
-  // const previousInstanceId = store?.getState().instanceId
+  const previousInstanceId = store?.getState().instance.id
 
-  // // Check for a new instance. It could be a different version, release type, etc
-  // // so reload the whole page to ensure the JavaScript in the browser is in sync.
-  // if (previousInstanceId && state.instanceId !== previousInstanceId) {
-  //   console.info(`Instance changed from ${previousInstanceId} to ${state.instanceId}. Reloading...`)
-  //   window.location.reload()
-  //   return
-  // }
+  // Check for a new instance. It could be a different version, release type, etc
+  // so reload the whole page to ensure the JavaScript in the browser is in sync.
+  if (previousInstanceId && state.instance.id !== previousInstanceId) {
+    console.info(`Instance changed from ${previousInstanceId} to ${state.instance.id}. Reloading...`)
+    window.location.reload()
+    return
+  }
 
   store = makeStore(
     {
