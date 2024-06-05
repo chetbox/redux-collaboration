@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { namesSelectors } from "../names/namesSlice"
 import { useUiConnectionId } from "../remoteUi/UiConnectionProvider"
 import styles from "./Button.module.css"
 import { buttonActions, buttonSelectors } from "./buttonSlice"
+import ConfettiExplosion from "react-confetti-explosion"
+import usePrevious from "use-previous"
 
 export const Button = () => {
   const dispatch = useAppDispatch()
@@ -14,6 +17,10 @@ export const Button = () => {
   const connectionId = useUiConnectionId()
   const name = useAppSelector(state => namesSelectors.name(state, connectionId))
   const isClickedByMe = useAppSelector(state => (name ? buttonSelectors.clickedBy(state, name) : false))
+
+  const clickedCount = useAppSelector(buttonSelectors.clickedCount)
+  const previousClickedCount = usePrevious(clickedCount) ?? clickedCount
+  const justClicked = clickedCount !== previousClickedCount
 
   return (
     <div>
@@ -28,6 +35,7 @@ export const Button = () => {
       >
         {text}
       </button>
+      {justClicked && <ConfettiExplosion />}
       <p className={styles.hint}>Lowest score wins</p>
     </div>
   )

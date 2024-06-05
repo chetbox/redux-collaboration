@@ -58,6 +58,7 @@ export const buttonSlice = createAppSlice({
     backgroundColor: state => state.backgroundColor,
     counter: state => state.counter,
     clickedBy: (state, name: string) => !!state.clickedBy.find(item => item.name === name),
+    clickedCount: state => state.clickedBy.length,
     leaderBoard: state => [...state.clickedBy].sort((a, b) => a.score - b.score),
   },
 })
