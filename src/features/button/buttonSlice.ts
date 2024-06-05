@@ -16,7 +16,7 @@ const initialState: ButtonSliceState = {
   backgroundColor: "#704cb6",
   textColor: "#ffffff",
   fontSize: 20,
-  counter: 60,
+  counter: 200,
 }
 
 export const buttonSlice = createAppSlice({
