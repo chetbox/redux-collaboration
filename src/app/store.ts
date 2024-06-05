@@ -1,11 +1,11 @@
 import type { Action, Middleware, StoreEnhancer, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
-import { counterSlice } from "../features/counter/counterSlice"
 import { cursorsSlice } from "../features/cursors/cursorsSlice"
+import { buttonSlice } from "../features/button/buttonSlice"
 
 // `combineSlices` automatically combines the reducers
-const rootReducer = combineSlices(counterSlice, cursorsSlice)
+const rootReducer = combineSlices(cursorsSlice, buttonSlice)
 
 // The store setup is wrapped in `makeStore` to allow reuse
 // when setting up tests that need the same store config

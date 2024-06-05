@@ -8,6 +8,7 @@ import { fileURLToPath } from "url"
 import { makeStore } from "../app/store"
 import { createRemoteUiServerMiddleware } from "./remoteUiServerMiddleware"
 import { cursorsActions } from "../features/cursors/cursorsSlice"
+import { buttonActions } from "../features/button/buttonSlice"
 
 // Get __dirname (require because this project uses ESM)
 const __filename = fileURLToPath(import.meta.url) // get the resolved path to the file
@@ -33,6 +34,9 @@ const store = makeStore({
     }),
   ],
 })
+
+// Start the timer ticking
+setInterval(() => store.dispatch(buttonActions.countdown()), 1000)
 
 // Live reloading for development
 const liveReloadServer = livereload.createServer()

@@ -1,0 +1,47 @@
+.counter {
+  font-size: 50px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.button {
+  min-width: 10px;
+  min-height: 10px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 0 4px black;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.leaderBoard {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.hint {
+  font-size: 12px;
+}
+
+.input[type="color"] {
+  width: 40px;
+  height: 40px;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  & > label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 1em;
+  }
+}
