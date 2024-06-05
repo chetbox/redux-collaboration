@@ -20,7 +20,7 @@ export const Button = () => {
 
   const clickedCount = useAppSelector(buttonSelectors.clickedCount)
   const previousClickedCount = usePrevious(clickedCount) ?? clickedCount
-  const justClicked = clickedCount !== previousClickedCount
+  const justClicked = clickedCount > previousClickedCount
 
   return (
     <div>
