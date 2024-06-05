@@ -39,9 +39,11 @@ const store = makeStore({
 setInterval(() => store.dispatch(buttonActions.countdown()), 1000)
 
 // Live reloading for development
-const liveReloadServer = livereload.createServer()
-liveReloadServer.watch(path.join(__dirname, "..", "..", "dist"))
-app.use(connectLivereload())
+if (process.env.NODE_ENV !== "production") {
+  const liveReloadServer = livereload.createServer()
+  liveReloadServer.watch(path.join(__dirname, "..", "..", "dist"))
+  app.use(connectLivereload())
+}
 
 // Host pre-built static files
 app.use(express.static("dist"))
