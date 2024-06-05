@@ -38,7 +38,7 @@ socket.on("init", ({ uiConnectionId, state }) => {
       enhancers: [
         createRemoteUiEnhancer<RootState, AppAction>({
           connectionId: uiConnectionId,
-          // When an action is dispatch locally send it to the server
+          // When an action is dispatched locally send it to the server
           // to share it with all remote connections
           onLocalDispatch(action) {
             socket.timeout(5000).emit("dispatch", action)
