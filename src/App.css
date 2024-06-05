@@ -18,8 +18,8 @@
 .Settings {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100dvw;
+  right: 0;
+  width: 67dvw;
   height: 100dvh;
   background-color: lightgrey;
   padding: 10px;

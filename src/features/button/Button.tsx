@@ -42,7 +42,7 @@ export const Settings = ({ className }: { className?: string }) => {
   return (
     <form className={`${className} ${styles.settings}`}>
       <label>
-        Text
+        Button Text
         <input
           className={styles.input}
           type="color"
@@ -61,7 +61,7 @@ export const Settings = ({ className }: { className?: string }) => {
           </label> */}
       </label>
       <label>
-        Background
+        Button Background
         <input
           className={styles.input}
           type="color"
