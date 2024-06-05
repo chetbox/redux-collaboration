@@ -27,37 +27,47 @@ export const Button = () => {
         {text}
       </button>
       <p className={styles.hint}>Lowest score wins</p>
-      <form className={styles.settings}>
-        <label>
-          Text
-          <input
-            className={styles.input}
-            type="color"
-            value={color}
-            onChange={e => dispatch(buttonActions.setTextColor(e.target.value))}
-          />
-          <input
-            className={styles.input}
-            type="text"
-            value={text}
-            onChange={e => dispatch(buttonActions.setText(e.target.value))}
-          />
-          {/* <label>
+    </div>
+  )
+}
+
+export const Settings = ({ className }: { className?: string }) => {
+  const dispatch = useAppDispatch()
+  const text = useAppSelector(buttonSelectors.text)
+  const color = useAppSelector(buttonSelectors.textColor)
+  const backgroundColor = useAppSelector(buttonSelectors.backgroundColor)
+
+  return (
+    <form className={`${className} ${styles.settings}`}>
+      <label>
+        Text
+        <input
+          className={styles.input}
+          type="color"
+          value={color}
+          onChange={e => dispatch(buttonActions.setTextColor(e.target.value))}
+        />
+        <input
+          className={styles.input}
+          type="text"
+          value={text}
+          onChange={e => dispatch(buttonActions.setText(e.target.value))}
+        />
+        {/* <label>
             <button onClick={() => dispatch(buttonActions.decrementFontSize(1))}>-</button> {fontSize} pt{" "}
             <button onClick={() => dispatch(buttonActions.incrementFontSize(1))}>+</button>
           </label> */}
-        </label>
-        <label>
-          Background
-          <input
-            className={styles.input}
-            type="color"
-            value={backgroundColor}
-            onChange={e => dispatch(buttonActions.setBackgroundColor(e.target.value))}
-          />
-        </label>
-      </form>
-    </div>
+      </label>
+      <label>
+        Background
+        <input
+          className={styles.input}
+          type="color"
+          value={backgroundColor}
+          onChange={e => dispatch(buttonActions.setBackgroundColor(e.target.value))}
+        />
+      </label>
+    </form>
   )
 }
 
