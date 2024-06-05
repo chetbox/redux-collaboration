@@ -7,7 +7,7 @@ import { namesActions, namesSelectors } from "./namesSlice"
 export const NamePicker = () => {
   const dispatch = useAppDispatch()
   const [name, setName] = useState("")
-  const uiConnectionId = useUiConnectionId()
+  const connectionId = useUiConnectionId()
   const nameAlreadyExists = useAppSelector(state => namesSelectors.nameExists(state, name))
 
   return (
@@ -15,7 +15,7 @@ export const NamePicker = () => {
       className={styles.picker}
       onSubmit={() => {
         if (!name || nameAlreadyExists) return
-        dispatch(namesActions.register({ connectionId: uiConnectionId, name }))
+        dispatch(namesActions.register({ connectionId, name }))
         localStorage.setItem("name", name) // Save to retrieve later, allowing us to give the same name to a new connection
       }}
     >

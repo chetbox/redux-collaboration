@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { namesSelectors } from "../names/namesSlice"
 import { useUiConnectionId } from "../remoteUi/UiConnectionProvider"
 import styles from "./Button.module.css"
 import { buttonActions, buttonSelectors } from "./buttonSlice"
@@ -10,8 +11,9 @@ export const Button = () => {
   const color = useAppSelector(buttonSelectors.textColor)
   const backgroundColor = useAppSelector(buttonSelectors.backgroundColor)
   const counter = useAppSelector(buttonSelectors.counter)
-  const uiConnectionId = useUiConnectionId()
-  const isClickedByMe = useAppSelector(state => buttonSelectors.clickedBy(state, uiConnectionId))
+  const connectionId = useUiConnectionId()
+  const name = useAppSelector(state => namesSelectors.name(state, connectionId))
+  const isClickedByMe = useAppSelector(state => (name ? buttonSelectors.clickedBy(state, name) : false))
 
   return (
     <div>
@@ -21,8 +23,8 @@ export const Button = () => {
       <button
         className={styles.button}
         style={{ fontSize, backgroundColor, color }}
-        onClick={e => dispatch(buttonActions.click(uiConnectionId))}
-        disabled={isClickedByMe}
+        onClick={e => name && dispatch(buttonActions.click(name))}
+        disabled={!name || isClickedByMe}
       >
         {text}
       </button>
@@ -78,7 +80,7 @@ export const LeaderBoard = () => {
     <ol className={styles.leaderBoard}>
       {leaderBoard.map(({ name, score }, index) => (
         <li key={name} style={index === 0 ? { fontWeight: "bold" } : undefined}>
-          {score.toString().padStart(2, "0")} - {name}
+          {score.toString().padStart(3, " ")} - {name}
         </li>
       ))}
     </ol>
