@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { cursorsSlice } from "./cursorsSlice"
 import styles from "./Cursors.module.css"
 import { useUiConnectionId } from "../remoteUi/UiConnectionProvider"
+import throttle from "lodash.throttle"
 
 export const Cursors = () => {
   const dispatch = useAppDispatch()
@@ -18,14 +19,14 @@ export const Cursors = () => {
 
   // Update cursor position
   useLayoutEffect(() => {
-    const onMouseMove = (event: MouseEvent) => {
+    const onMouseMove = throttle((event: MouseEvent) => {
       dispatch(
         cursorsSlice.actions.setPosition({
           connectionId,
           position: { x: event.clientX, y: event.clientY },
         }),
       )
-    }
+    }, 50)
 
     document.body.addEventListener("mouseenter", onMouseMove)
     document.body.addEventListener("mousemove", onMouseMove)
@@ -77,7 +78,7 @@ export const Cursors = () => {
             <div
               key={id}
               className={styles.cursor}
-              style={{ left: cursor.position.x, top: cursor.position.y, opacity: id === connectionId ? 1 : 0.5 }}
+              style={{ left: cursor.position.x, top: cursor.position.y, opacity: id === connectionId ? 0.5 : 1 }}
             >
               {id}
             </div>

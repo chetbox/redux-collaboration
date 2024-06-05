@@ -11,6 +11,9 @@
   padding: 4px;
   box-sizing: border-box;
   font-size: 10px;
+  transition:
+    top 0.1s,
+    left 0.1s;
 }
 
 .cursor::before {
