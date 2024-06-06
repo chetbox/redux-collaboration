@@ -10,6 +10,7 @@ import { syncTime } from "./features/remoteUi/timeSync"
 import createRemoteUiEnhancer, { RemoteUiActionTypes } from "./features/remoteUi/remoteUiEnhancer"
 import { UiConnectionProvider, type UiConnectionSocket } from "./features/remoteUi/UiConnectionProvider"
 import { namesActions } from "./features/names/namesSlice"
+import { instanceSlice } from "./features/instance/instanceSlice"
 
 const container = document.getElementById("root")!
 const root = createRoot(container)
@@ -24,16 +25,6 @@ let store: ReturnType<typeof makeStore> | null = null
 
 // Handle the initial state. We should only get this once, as the first message, per connection
 socket.on("init", ({ uiConnectionId: connectionId, state }) => {
-  const previousInstanceId = store?.getState().instance.id
-
-  // Check for a new instance. It could be a different version, release type, etc
-  // so reload the whole page to ensure the JavaScript in the browser is in sync.
-  if (previousInstanceId && state.instance.id !== previousInstanceId) {
-    console.info(`Instance changed from ${previousInstanceId} to ${state.instance.id}. Reloading...`)
-    window.location.reload()
-    return
-  }
-
   store = makeStore(
     {
       enhancers: [
@@ -55,6 +46,16 @@ socket.on("init", ({ uiConnectionId: connectionId, state }) => {
     if (!store) {
       throw new Error("Store not ready")
     }
+
+    // Check for a new instance.
+    // Reload the whole page to ensure the JavaScript in the browser is in sync.
+    const previousInstanceId = store.getState().instance.id
+    if (state.instance.id !== previousInstanceId) {
+      console.info(`Instance changed from ${previousInstanceId} to ${state.instance.id}. Reloading...`)
+      window.location.reload()
+      return
+    }
+
     store.dispatch({ type: RemoteUiActionTypes.Dispatch, actions })
   })
 
@@ -64,6 +65,10 @@ socket.on("init", ({ uiConnectionId: connectionId, state }) => {
     if (existingName) {
       store.dispatch(namesActions.register({ connectionId, name: existingName }))
     }
+  }
+
+  ;(window as any).reset = () => {
+    store?.dispatch(instanceSlice.actions.reset())
   }
 
   // Render the app

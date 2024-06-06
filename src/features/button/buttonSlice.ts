@@ -1,5 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { createAppSlice } from "../../app/createAppSlice"
+import { instanceSlice } from "../instance/instanceSlice"
 
 export interface ButtonSliceState {
   clickedBy: { name: string; score: number }[]
@@ -54,6 +55,9 @@ export const buttonSlice = createAppSlice({
       }
     }),
   }),
+  extraReducers(builder) {
+    builder.addCase(instanceSlice.actions.reset, () => initialState)
+  },
   selectors: {
     text: state => state.text,
     textColor: state => state.textColor,

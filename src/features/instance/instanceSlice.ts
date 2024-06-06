@@ -7,7 +7,11 @@ export interface NamesSliceState {
 export const instanceSlice = createAppSlice({
   name: "instance",
   initialState: { id: uuidV4() },
-  reducers: {},
+  reducers: {
+    reset: state => {
+      state.id = uuidV4()
+    },
+  },
   selectors: {
     id: state => state.id,
   },
