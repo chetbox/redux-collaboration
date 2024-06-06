@@ -22,6 +22,17 @@ export const NamePicker = () => {
       <input type="text" placeholder="Enter your name" value={name} onChange={e => setName(e.target.value)} />
       <input type="submit" value="Submit" disabled={!name || nameAlreadyExists} />
       {<p className={styles.error}>{nameAlreadyExists ? "Name already taken" : " "}</p>}
+      <p>
+        Lowest score wins
+        <br />
+        <br />
+        You have one chance
+        <br />
+        <br />
+        If nobody presses,
+        <br />
+        the counter resets
+      </p>
     </form>
   )
 }

@@ -14,7 +14,7 @@ export interface ButtonSliceState {
 
 const initialState: ButtonSliceState = {
   clickedBy: [],
-  text: "Press me",
+  text: "Save my score",
   backgroundColor: "#704cb6",
   textColor: "#ffffff",
   fontSize: 20,

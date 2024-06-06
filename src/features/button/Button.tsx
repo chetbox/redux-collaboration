@@ -109,7 +109,7 @@ export const LeaderBoard = () => {
     <ol className={styles.leaderBoard}>
       {leaderBoard.map(({ name, score }, index) => (
         <li key={name} style={index === 0 ? { fontWeight: "bold" } : undefined}>
-          {score.toString().padStart(3, "0")} - {name}
+          {score} - {name}
         </li>
       ))}
     </ol>
