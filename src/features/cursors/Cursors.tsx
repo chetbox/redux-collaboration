@@ -117,7 +117,7 @@ export const Cursors = () => {
             <div
               key={id}
               className={styles.cursor}
-              style={{ left: cursor.position.x, top: cursor.position.y, opacity: id === connectionId ? 0 : 1 }}
+              style={{ left: cursor.position.x, top: cursor.position.y, opacity: id === connectionId ? 0.5 : 1 }}
             >
               {connectionIdNames[id] || id}
             </div>
