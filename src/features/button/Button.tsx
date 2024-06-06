@@ -3,8 +3,11 @@ import { namesSelectors } from "../names/namesSlice"
 import { useUiConnectionId } from "../remoteUi/UiConnectionProvider"
 import styles from "./Button.module.css"
 import { buttonActions, buttonSelectors } from "./buttonSlice"
-import ConfettiExplosion from "react-confetti-explosion"
 import usePrevious from "use-previous"
+import JSConfetti from "js-confetti"
+import { useEffect } from "react"
+
+const jsConfetti = new JSConfetti()
 
 export const Button = () => {
   const dispatch = useAppDispatch()
@@ -21,7 +24,15 @@ export const Button = () => {
 
   const clickedCount = useAppSelector(buttonSelectors.clickedCount)
   const previousClickedCount = usePrevious(clickedCount) ?? clickedCount
-  const justClicked = clickedCount > previousClickedCount
+
+  useEffect(() => {
+    clickedCount > previousClickedCount &&
+      jsConfetti.addConfetti({ emojis: ["🏆"], confettiNumber: clickedCount - previousClickedCount, emojiSize: 200 })
+  }, [clickedCount, previousClickedCount])
+
+  useEffect(() => {
+    counter === lastCounterReset && jsConfetti.addConfetti({ emojis: ["💥"], confettiNumber: 10, emojiSize: 200 })
+  }, [counter, lastCounterReset])
 
   return (
     <div>
@@ -36,7 +47,6 @@ export const Button = () => {
       >
         {text}
       </button>
-      {justClicked && <ConfettiExplosion />}
       <p className={styles.hint}>
         You have one chance
         <br />
@@ -48,7 +58,6 @@ export const Button = () => {
         <br />
         counter resets to <b>{nextCounterReset}</b>
       </p>
-      {counter === lastCounterReset && <ConfettiExplosion colors={["#FF0000"]} />}
     </div>
   )
 }
