@@ -9,7 +9,7 @@ export interface ButtonSliceState {
   textColor: string
   fontSize: number
   counter: number
-  nextCounterReset: number
+  counterReset: number
 }
 
 const initialState: ButtonSliceState = {
@@ -19,7 +19,7 @@ const initialState: ButtonSliceState = {
   textColor: "#ffffff",
   fontSize: 20,
   counter: 64,
-  nextCounterReset: 128,
+  counterReset: 64,
 }
 
 export const buttonSlice = createAppSlice({
@@ -29,7 +29,7 @@ export const buttonSlice = createAppSlice({
     click: create.reducer((state, { payload }: PayloadAction<string>) => {
       if (!state.clickedBy.find(({ name }) => name === payload)) {
         state.clickedBy.push({ name: payload, score: state.counter })
-        state.counter = initialState.counter
+        state.counter = state.counterReset
       }
     }),
     setText: create.reducer((state, { payload }: PayloadAction<string>) => {
@@ -50,8 +50,8 @@ export const buttonSlice = createAppSlice({
     countdown: create.reducer(state => {
       state.counter -= 1
       if (state.counter <= 0) {
-        state.counter = state.nextCounterReset
-        state.nextCounterReset *= 2
+        state.counterReset *= 2
+        state.counter = state.counterReset
       }
     }),
   }),
@@ -67,7 +67,7 @@ export const buttonSlice = createAppSlice({
     clickedBy: (state, name: string) => !!state.clickedBy.find(item => item.name === name),
     clickedCount: state => state.clickedBy.length,
     leaderBoard: state => [...state.clickedBy].sort((a, b) => a.score - b.score),
-    nextCounterReset: state => state.nextCounterReset,
+    nextCounterReset: state => state.counterReset * 2,
   },
 })
 

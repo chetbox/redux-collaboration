@@ -1,16 +1,19 @@
 import { createAppSlice } from "../../app/createAppSlice"
 import { v4 as uuidV4 } from "uuid"
 
-export interface NamesSliceState {
+export interface InstanceSliceState {
   id: string
 }
+
+function createInstance(): InstanceSliceState {
+  return { id: uuidV4() }
+}
+
 export const instanceSlice = createAppSlice({
   name: "instance",
-  initialState: { id: uuidV4() },
+  initialState: createInstance(),
   reducers: {
-    reset: state => {
-      state.id = uuidV4()
-    },
+    reset: () => createInstance(),
   },
   selectors: {
     id: state => state.id,

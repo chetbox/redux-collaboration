@@ -31,7 +31,7 @@ export const Button = () => {
       <button
         className={styles.button}
         style={{ fontSize, backgroundColor, color }}
-        onClick={e => name && dispatch(buttonActions.click(name))}
+        onClick={() => name && dispatch(buttonActions.click(name))}
         disabled={!name || isClickedByMe}
       >
         {text}
