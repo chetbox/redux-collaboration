@@ -67,8 +67,13 @@ socket.on("init", ({ uiConnectionId: connectionId, state }) => {
     }
   }
 
+  // Some admin tools in the console
   ;(window as any).reset = () => {
     store?.dispatch(instanceSlice.actions.reset())
+  }
+  ;(window as any).logout = () => {
+    localStorage.clear()
+    window.location.reload()
   }
 
   // Render the app
