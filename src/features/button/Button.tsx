@@ -1,10 +1,11 @@
-import ConfettiExplosion from "react-confetti-explosion"
-import usePrevious from "use-previous"
+import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { namesSelectors } from "../names/namesSlice"
 import { useUiConnectionId } from "../remoteUi/UiConnectionProvider"
 import styles from "./Button.module.css"
 import { buttonActions, buttonSelectors } from "./buttonSlice"
+import ConfettiExplosion from "react-confetti-explosion"
+import usePrevious from "use-previous"
 
 export const Button = () => {
   const dispatch = useAppDispatch()

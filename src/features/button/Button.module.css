@@ -12,7 +12,7 @@
   box-shadow: 0 0 4px black;
 
   &:disabled {
-    opacity: 0;
+    opacity: 0.5;
   }
 }
 
