@@ -17,8 +17,8 @@ const initialState: ButtonSliceState = {
   backgroundColor: "#704cb6",
   textColor: "#ffffff",
   fontSize: 20,
-  counter: 60,
-  nextCounterReset: 120,
+  counter: 64,
+  nextCounterReset: 128,
 }
 
 export const buttonSlice = createAppSlice({
@@ -63,6 +63,7 @@ export const buttonSlice = createAppSlice({
     clickedBy: (state, name: string) => !!state.clickedBy.find(item => item.name === name),
     clickedCount: state => state.clickedBy.length,
     leaderBoard: state => [...state.clickedBy].sort((a, b) => a.score - b.score),
+    nextCounterReset: state => state.nextCounterReset,
   },
 })
 

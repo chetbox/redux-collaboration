@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { namesSelectors } from "../names/namesSlice"
 import { useUiConnectionId } from "../remoteUi/UiConnectionProvider"
@@ -17,6 +16,8 @@ export const Button = () => {
   const connectionId = useUiConnectionId()
   const name = useAppSelector(state => namesSelectors.name(state, connectionId))
   const isClickedByMe = useAppSelector(state => (name ? buttonSelectors.clickedBy(state, name) : false))
+  const nextCounterReset = useAppSelector(buttonSelectors.nextCounterReset)
+  const lastCounterReset = usePrevious(nextCounterReset)
 
   const clickedCount = useAppSelector(buttonSelectors.clickedCount)
   const previousClickedCount = usePrevious(clickedCount) ?? clickedCount
@@ -36,7 +37,18 @@ export const Button = () => {
         {text}
       </button>
       {justClicked && <ConfettiExplosion />}
-      <p className={styles.hint}>Lowest score wins</p>
+      <p className={styles.hint}>
+        You have one chance
+        <br />
+        <br />
+        Lowest score wins
+        <br />
+        <br />
+        If nobody presses,
+        <br />
+        counter resets to <b>{nextCounterReset}</b>
+      </p>
+      {counter === lastCounterReset && <ConfettiExplosion colors={["#FF0000"]} />}
     </div>
   )
 }

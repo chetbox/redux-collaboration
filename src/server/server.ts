@@ -36,7 +36,7 @@ const store = makeStore({
 })
 
 // Start the timer ticking
-setInterval(() => store.dispatch(buttonActions.countdown()), 1000)
+setInterval(() => store.dispatch(buttonActions.countdown()), 100)
 
 // Live reloading for development
 if (process.env.NODE_ENV !== "production") {
