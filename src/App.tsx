@@ -33,6 +33,9 @@ const App = () => {
       <div className="Connections">
         <Connections />
       </div>
+      <p className="Info">
+        <a href="https://github.com/chetbox/redux-collaboration">Source code</a>
+      </p>
     </div>
   )
 }

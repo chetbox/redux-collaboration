@@ -31,6 +31,7 @@
   box-sizing: border-box;
   transition: transform 0.5s;
   box-shadow: 0 0 5px black;
+  z-index: 1;
 }
 
 .App > button,
@@ -44,9 +45,24 @@
 .Connections {
   position: fixed;
   height: auto;
-  bottom: 0;
-  padding: 10px;
+  bottom: 20px;
+  padding: 5px;
   left: 0;
   right: 0;
   font-weight: bold;
+}
+
+.Info {
+  position: fixed;
+  height: auto;
+  bottom: 0;
+  padding: 5px;
+  left: 0;
+  right: 0;
+  font-size: 10px;
+  color: #777;
+
+  a {
+    color: inherit;
+  }
 }
