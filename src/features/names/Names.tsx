@@ -23,10 +23,12 @@ export const NamePicker = () => {
       <input type="submit" value="Submit" disabled={!name || nameAlreadyExists} />
       {<p className={styles.error}>{nameAlreadyExists ? "Name already taken" : " "}</p>}
       <p>
-        Lowest score wins
-        <br />
-        <br />
         You have one chance
+        <br />
+        to press the button
+        <br />
+        <br />
+        Lowest score wins
         <br />
         <br />
         If nobody presses,
